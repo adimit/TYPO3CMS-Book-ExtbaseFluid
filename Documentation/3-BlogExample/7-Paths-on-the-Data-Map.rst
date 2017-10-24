@@ -32,7 +32,7 @@ property *posts* within the ``Blog`` class. You can find this in the file
         /**
          * The posts of this blog
          *
-         * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\MyVendor\BlogExample\Domain\Model\post>
+         * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\MyVendor\BlogExample\Domain\Model\Post>
          *
          */
         protected $posts;
