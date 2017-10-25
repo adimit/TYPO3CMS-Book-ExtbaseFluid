@@ -4,12 +4,13 @@ Rendering the output with fluid
 ===============================
 
 The TemplateView of Fluid now tries to load the corresponding HTML-Template.
-Since there is none specified by ``this->view->setTemplatePathAndFilename($template-PathAndFilename)``
-Fluid searches at an place defined by conventions.
+Since there is none specified by
+:php:`$this->view->setTemplatePathAndFilename($template->PathAndFilename)`
+Fluid searches in a place defined by conventions.
 
 All front end templates can be found in :file:`EXT:blog_example/Resources/Private/Templates`
 by default. There for example are the two subfolders *Blog* and *Post*.
-Since the call was made by the ``indexAction()`` of the ``BlogController`` fluid
+Since the call was made by the :php:`indexAction()` of the ``BlogController`` fluid
 searches in the folder *Blog* for a file named *index* and - if not setup up
 differently - the suffix *.html*. So every action method has its own template.
 Possible other formats are e.g. *.pdf*, *.json* or *.xml*. In table 3.1 you
@@ -95,27 +96,27 @@ available inside of ``<f:for>[...]</f:for>``. Here it can be called with ``{blog
     to make the name of the variable configurable. Rule of thumb: Curly brackets in
     each, none in ``as``.
 
-Objects can not be rendered by Fluid directly. An exception make objects that
-have a ``__toString()`` method. The single properties of such an object can be
-accessed with a point-notation. If Fluid crosses a string like ``{blog.title}`` it
-tries to parse it. Fluid expects the variable ``blog`` to be an object. Inside of
-this object it searches for a method named ``getTitle()``. The name of the method is
-created by extracting the part after the point, capitalizes the first letter and
-prefixes a »get«. With this the call looks something like this:
-``$blog->getTitle()``. The return value will replace ``{blog.title}`` in the
-template. Analogously ``{blog.descripton}`` will be replaced with the description.
-Parsing the point goes recursively. That means Fluid can parse a string
-``{blog.administrator.name}`` by calling a method that equals
-``$blog->getAdministrator()->getName()``.
+Except for objects that have a :php:`__toString()` method, objects cannot be
+rendered by Fluid directly. Properties of objects can be
+accessed via dot-notation. If Fluid encounters a string like ``{blog.title}``
+it tries to parse it. Fluid expects the variable ``blog`` to be an object.
+Inside of this object it searches for a method named :php:`getTitle()`. The name
+of the method is created by extracting the part after the point, capitalizes the
+first letter and prefixes a »get«. With this the call looks something like this:
+:php:`$blog->getTitle()`. The return value will replace ``{blog.title}`` in the
+template. Analogously ``{blog.descripton}`` will be replaced with the
+description. Dot-notation is parsed recursively. That means Fluid can parse a
+string ``{blog.administrator.name}`` by calling a method that equals
+:php:`$blog->getAdministrator()->getName()`.
 
 .. note::
 
-    The return value is "tidied up" by ``htmlspecialchars()``. That protects from
+    The return value is "tidied up" by :php:`htmlspecialchars()`. That protects from
     Cross Site Scripting-Attacks (XSS).
 
 As soon as Fluid is done with the whole template the result is appended to the
 ``Response`` object. This is done in the :php:`\TYPO3\CMS\Extbase\Mvc\Controller\ActionController`
-by the call ``$this->response->appendContent($this->view->render())``.
+by the call :php:`$this->response->appendContent($this->view->render())`.
 
 Our journey slowly comes to an end. The *Request* is been fully answered by a
 corresponding Action. The ``Response`` object carries the completely generated
