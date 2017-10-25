@@ -4,19 +4,19 @@ Alternative route: creating a new posting
 =========================================
 
 After out first journey through the blog example, in this chapter we will follow a
-more complex example. As an example we have choose the creation of a new post. The
-user should be offered a form in the front end, in which he could put in the title
+more complex example: the creation of a new post. The
+user should be offered a form in the front end, in which he can fill in the title
 and the content of a new post entry and select an existing author for this post.
 After clicking the *submit* button, the list of the last posts of the current blog
 should be displayed - now with the just created post at the first place. There are
 multiple steps, each based on the previous step, to be implemented that are
 mirrored in the actions ``new`` and ``create``. The method
-``newAction()`` displays the form, while the method ``createAction()``
+:php:`newAction()` displays the form, while the method :php:`createAction()`
 really creates the post, puts it in the repository and routes the process to the
-method ``indexAction()``.
+method :php:`indexAction()`.
 
-Calling the method ``newAction()`` is done in our case with a link in the
-front end, that looks - a bit purged - like this:
+Calling the method :php:`newAction()` is done in our case with a link in the
+front end, that looks - somewhat abbreviated - like this:
 
 ::
 
@@ -51,7 +51,7 @@ Lets take a look at the called method ``newAction()``:
 	 * @dontvalidate $newPost
 	 */
 	public function newAction(\MyVendor\BlogExample\Domain\Model\Blog $blog, \MyVendor\BlogExample\Domain\Model\Post $newPost = NULL) {
-		$this->view->assign('authors', $this->personRepository->findAll();
+		$this->view->assign('authors', $this->personRepository->findAll());
 		$this->view->assign('blog', $blog);
 		$this->view->assign('newPost', $newPost);
 	}
@@ -59,7 +59,7 @@ Lets take a look at the called method ``newAction()``:
 The method ``newAction()`` expected a ``blog`` object and an optional ``post``
 object as parameter. It should be weird at first, because we have no blog and no
 post object, that has to be created with the form. Actually the parameter
-``$newPost`` is empty (``NULL``) at the first call.
+:php:`$newPost` is empty (``NULL``) at the first call.
 
 Our ``PostController``, that is derived from ``ActionController``, prepares all
 parameters before an action is called. The controller delegates this  to an
